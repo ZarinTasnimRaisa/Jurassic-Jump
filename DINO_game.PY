@@ -87,8 +87,10 @@ def cactus():
     glColor3f(0.0, 0.5, 0.0)
 
     midpoint(500, 37, 525, 37)
-    midpoint(500, 200, 500, 37)
-    midpoint(525, 200, 525, 37)
+    midpoint(500, 80, 500, 37)
+    midpoint(500,200,500,95)
+    midpoint(525, 200, 525, 110)
+    midpoint(525,90,525,37)
     midpoint(500,200,505,200)
     midpoint(520,200,525,200)
     midpoint(505,205,505,200)
