@@ -1,19 +1,23 @@
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
-import time
 
+start_time = 0
+listfortimeprint = []
+gameOver = False
 dinosaur_jump = 0
 goingUP = False
 goingDOWN = False
-
 movingCactus1 = 0
 cactus_1 = 2000
 cactus = 3000
 cactus1 = 5000
-
 speed = 1
 seconds = 0
+bird_x = 1500
+bird_y = 4500
+bird_speed = 15
+
 def dinosaur():
     glColor3f(0.4, 0.0, 0.5)
     #head
@@ -211,47 +215,79 @@ def cacTus():
     midpoint(561 +cactus1 - movingCactus1,170,561 +cactus1 - movingCactus1,165)
     midpoint(554 +cactus1 - movingCactus1,165,561 +cactus1 - movingCactus1,165)
     midpoint(554 +cactus1 - movingCactus1,165,554 +cactus1 - movingCactus1,110)
-    
-    
+       
 def bird():
+    global bird_x, bird_y
     glColor3f(0.5, 0.5, 0.0)
-    midpoint(179, 176, 185, 179)
-    midpoint(185, 179, 197, 184)
-    midpoint(197, 184, 201, 173)
-    midpoint(201, 173, 207, 169)
-    midpoint(207, 169, 210, 166)
-    midpoint(210, 166, 213, 158)
-    midpoint(213, 158, 218, 159)
-    midpoint(218, 159, 214, 166)
-    midpoint(214, 166, 230, 187)
-    midpoint(230, 187, 256, 200)
-    midpoint(256, 200, 235, 201)
-    midpoint(235, 201, 224, 199)
-    midpoint(224, 199, 216, 193)
-    midpoint(216, 193, 212, 200)
-    midpoint(212, 200, 205, 205)
-    midpoint(205, 205, 191, 207)
-    midpoint(191, 207, 197, 200)
-    midpoint(197, 200, 200, 193)
-    midpoint(200, 193, 185, 184)
-    midpoint(185, 184, 180, 180)
-    midpoint(180, 180, 179, 176)
-    midpoint(216, 193, 205, 180)
-    midpoint(205, 180, 204, 191)
-    midpoint(204, 191, 207, 195)
-    midpoint(207, 195, 200, 193)
-    midpoint(197, 186, 179, 176)
+    #bird1
+    midpoint(179 + bird_x, 176, 185 + bird_x, 179)
+    midpoint(185 + bird_x, 179, 197 + bird_x, 184)
+    midpoint(197 + bird_x, 184, 201 + bird_x, 173)
+    midpoint(201 + bird_x, 173, 207 + bird_x, 169)
+    midpoint(207 + bird_x, 169, 210 + bird_x, 166)
+    midpoint(210 + bird_x, 166, 213 + bird_x, 158)
+    midpoint(213 + bird_x, 158, 218 + bird_x, 159)
+    midpoint(218 + bird_x, 159, 214 + bird_x, 166)
+    midpoint(214 + bird_x, 166, 230 + bird_x, 187)
+    midpoint(230 + bird_x, 187, 256 + bird_x, 200)
+    midpoint(256 + bird_x, 200, 235 + bird_x, 201)
+    midpoint(235 + bird_x, 201, 224 + bird_x, 199)
+    midpoint(224 + bird_x, 199, 216 + bird_x, 193)
+    midpoint(216 + bird_x, 193, 212 + bird_x, 200)
+    midpoint(212 + bird_x, 200, 205 + bird_x, 205)
+    midpoint(205 + bird_x, 205, 191 + bird_x, 207)
+    midpoint(191 + bird_x, 207, 197 + bird_x, 200)
+    midpoint(197 + bird_x, 200, 200 + bird_x, 193)
+    midpoint(200 + bird_x, 193, 185 + bird_x, 184)
+    midpoint(185 + bird_x, 184, 180 + bird_x, 180)
+    midpoint(180 + bird_x, 180, 179 + bird_x, 176)
+    midpoint(216 + bird_x, 193, 205 + bird_x, 180)
+    midpoint(205 + bird_x, 180, 204 + bird_x, 191)
+    midpoint(204 + bird_x, 191, 207 + bird_x, 195)
+    midpoint(207 + bird_x, 195, 200 + bird_x, 193)
+    midpoint(197 + bird_x, 186, 179 + bird_x, 176)
+    #Bird2
+    midpoint(179 + bird_y, 176, 185 + bird_y, 179)
+    midpoint(185 + bird_y, 179, 197 + bird_y, 184)
+    midpoint(197 + bird_y, 184, 201 + bird_y, 173)
+    midpoint(201 + bird_y, 173, 207 + bird_y, 169)
+    midpoint(207 + bird_y, 169, 210 + bird_y, 166)
+    midpoint(210 + bird_y, 166, 213 + bird_y, 158)
+    midpoint(213 + bird_y, 158, 218 + bird_y, 159)
+    midpoint(218 + bird_y, 159, 214 + bird_y, 166)
+    midpoint(214 + bird_y, 166, 230 + bird_y, 187)
+    midpoint(230 + bird_y, 187, 256 + bird_y, 200)
+    midpoint(256 + bird_y, 200, 235 + bird_y, 201)
+    midpoint(235 + bird_y, 201, 224 + bird_y, 199)
+    midpoint(224 + bird_y, 199, 216 + bird_y, 193)
+    midpoint(216 + bird_y, 193, 212 + bird_y, 200)
+    midpoint(212 + bird_y, 200, 205 + bird_y, 205)
+    midpoint(205 + bird_y, 205, 191 + bird_y, 207)
+    midpoint(191 + bird_y, 207, 197 + bird_y, 200)
+    midpoint(197 + bird_y, 200, 200 + bird_y, 193)
+    midpoint(200 + bird_y, 193, 185 + bird_y, 184)
+    midpoint(185 + bird_y, 184, 180 + bird_y, 180)
+    midpoint(180 + bird_y, 180, 179 + bird_y, 176)
+    midpoint(216 + bird_y, 193, 205 + bird_y, 180)
+    midpoint(205 + bird_y, 180, 204 + bird_y, 191)
+    midpoint(204 + bird_y, 191, 207 + bird_y, 195)
+    midpoint(207 + bird_y, 195, 200 + bird_y, 193)
+    midpoint(197 + bird_y, 186, 179 + bird_y, 176)
 
 def land():
     glColor3f(0.2, 0.1, 0.0)
     midpoint(0, 35, 10000, 35)
 
-def keyboardListener(key, x, y):
-    global dinosaur_jump, goingUP, goingDOWN
-    if key==b' ':
-        if goingDOWN != True:
-            goingUP = True
-    glutPostRedisplay()
+def cross():
+    glColor3f(1.0, 0.0, 0.0)
+    midpoint(920, 680, 970, 650)
+    midpoint(920, 650, 970, 680)
+
+def arrowLeft():
+    glColor3f(0.0, 1.0, 1.0)
+    midpoint(20, 660, 70, 660)
+    midpoint(20, 660, 40, 680)
+    midpoint(20, 660, 40, 640)
 
 def draw_points(x0, y0):
     glPointSize(3)
@@ -338,37 +374,89 @@ def convert0_Original(zone, x0, y0):
     if zone == 7:
         return x0, -y0
    
-def specialKeyListener(key, left, right):
-    glutPostRedisplay()
-    pass
-    glutPostRedisplay()
-
 def mouseListener(button, state, x, y):
-    global ballx, bally, create_new, pauseBoolean, gameOver, score
+    global dinosaur_jump, start_time, movingCactus1, cactus_1, cactus, cactus1, speed, seconds, bird_x, bird_y
     if button==GLUT_LEFT_BUTTON:
         if(state == GLUT_DOWN):
-            pass
+            if 736 <= x <= 774 and 15 <= y <= 40:
+                glutLeaveMainLoop()
+            if 15 <= x <= 60 and 10 <= y <= 40:
+                print("Restarted!")
+                start_time = 0
+                dinosaur_jump = 0
+                movingCactus1 = 0
+                cactus_1 = 2000
+                cactus = 3000
+                cactus1 = 5000
+                speed = 1
+                seconds = 0
+                bird_x = 1500
+                bird_y = 4500
 
-def animate():
-    global dinosaur_jump, goingUP, goingDOWN, movingCactus1, seconds
+def keyboardListener(key, x, y):
+    global dinosaur_jump, goingUP, goingDOWN
+    if key==b' ':
+        if goingDOWN != True:
+            goingUP = True
     glutPostRedisplay()
-    if goingUP == True and goingDOWN == False:
-        dinosaur_jump += 15
-        if dinosaur_jump >= 250:
-            goingUP = False
-            goingDOWN = True
-    if goingDOWN == True and goingUP == False: 
-        dinosaur_jump -= 15
-        if dinosaur_jump < 0:
-            goingDOWN = False
-            goingUP = False
-            dinosaur_jump = 0
-    if (574 +cactus1 - movingCactus1) < 0:
-        movingCactus1 = 0
-    else:
-        movingCactus1 += 15
-    seconds += 1
-  
+                
+def animate():
+    global dinosaur_jump, goingUP, goingDOWN, movingCactus1, seconds, bird_x, bird_y, gameOver, start_time, listfortimeprint
+    glutPostRedisplay()
+    if gameOver == False:
+        if goingUP == True and goingDOWN == False:
+            dinosaur_jump += 30
+            if dinosaur_jump >= 300:
+                goingUP = False
+                goingDOWN = True
+        if goingDOWN == True and goingUP == False: 
+            dinosaur_jump -= 10
+            if dinosaur_jump < 0:
+                goingDOWN = False
+                goingUP = False
+                dinosaur_jump = 0
+        #cactusMove
+        if (574 +cactus1 - movingCactus1) < 0:
+            movingCactus1 = 0 
+            bird_x = 1500
+            bird_y = 4000
+        else:
+            movingCactus1 += 15
+        #birdMove
+        bird_x -= bird_speed
+        bird_y -= bird_speed
+        #clashwithCactus1
+        if (35+dinosaur_jump) < 155 and 130 >= (465 + cactus_1 - movingCactus1) and 15 <= (500 + cactus_1 - movingCactus1):
+            gameOver = True
+        elif (35+dinosaur_jump) < 200 and 130 >= (500 + cactus_1 - movingCactus1) and 15 <= (525 + cactus_1 - movingCactus1):
+            gameOver = True
+        #clashwithCactus2
+        elif (35+dinosaur_jump) < 155 and 130 >= (465 +cactus-movingCactus1) and 15 <= (500 +cactus-movingCactus1):
+            gameOver = True
+        elif (35+dinosaur_jump) < 200 and 130 >= (500 +cactus-movingCactus1) and 15 <= (525 +cactus-movingCactus1):
+            gameOver = True
+        #clashwithCactus3
+        elif (35+dinosaur_jump) < 155 and 130 >= (465 +cactus1 - movingCactus1) and 15 <= (500 +cactus1 - movingCactus1):
+            gameOver = True
+        elif (35+dinosaur_jump) < 200 and 130 >= (500 +cactus1 - movingCactus1) and 15 <= (525 +cactus1 - movingCactus1):
+            gameOver = True
+        #clashwithBird1
+        elif (35+dinosaur_jump) < 207 and 130 >= (179 + bird_x) and 55 <= (256 + bird_x):
+            gameOver = True
+        #clashwithBird2
+        elif (35+dinosaur_jump) < 207 and 130 >= (179 + bird_y) and 55 <= (256 + bird_y):
+            gameOver = True
+        else: 
+            pass
+        start_time += 0.04
+        if int(start_time) not in listfortimeprint:
+            listfortimeprint.append(int(start_time))
+            print(f"Score: {int(start_time)}")
+            if len(listfortimeprint) > 3:
+                listfortimeprint.pop(0)  
+        if gameOver:
+            print("Game Over")
+
 def iterate():
     glViewport(0, 0, 800, 500)
     glMatrixMode(GL_PROJECTION)
@@ -383,13 +471,13 @@ def showScreen():
     glClear(GL_COLOR_BUFFER_BIT)
     glLoadIdentity()
     iterate()
-
     animate()
+    cross()
+    arrowLeft()
     dinosaur()
     land()
     cacTus()
     bird()
-
     glutSwapBuffers()
     glutPostRedisplay()
 
@@ -401,4 +489,5 @@ wind = glutCreateWindow(b"Jurassic Jump") #window name
 glutDisplayFunc(showScreen)
 glutIdleFunc(showScreen)
 glutKeyboardFunc(keyboardListener)
+glutMouseFunc(mouseListener)
 glutMainLoop()
